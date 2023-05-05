@@ -1,0 +1,3 @@
+C:/Users/pauno/Desktop/Pajo/FINKI/FINKI_REPO/Semester_4/OperatingSystems/C/cmake-build-debug/CMakeFiles/C.dir
+C:/Users/pauno/Desktop/Pajo/FINKI/FINKI_REPO/Semester_4/OperatingSystems/C/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/pauno/Desktop/Pajo/FINKI/FINKI_REPO/Semester_4/OperatingSystems/C/cmake-build-debug/CMakeFiles/rebuild_cache.dir
