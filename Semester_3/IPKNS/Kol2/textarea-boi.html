@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<textarea id="area"></textarea>
+<button id="btn" onclick="showColors()">submit</button>
+
+
+<script>
+  const minSize = 25;
+  let area = document.getElementById('area');
+  let btn = document.getElementById('btn');
+  function showColors(){
+    console.log(area.value);
+    let arr = area.value.split("\n")
+    console.log(arr)
+    let subArr = [];
+    for(let i=0; i<arr.length; i++){
+      subArr.push(arr[i].split(" "));
+    }
+    console.log(subArr)
+    area.hidden = true;
+    btn.hidden = true;
+    showRandom(subArr);
+  }
+
+  function showRandom(subArr){
+    let arrCol = ['green', 'red', 'yellow', 'purple', 'blue', 'orange', 'pink'];
+
+    for(let i=0; i<subArr.length; i++){
+      setTimeout(rand, Math.random()*3000, subArr, i);
+
+
+    }
+    function rand(subArr, i){
+      let newEl = document.createElement('p');
+      newEl.style.fontSize = minSize * subArr[i].length + 'px';
+      newEl.style.color = arrCol[Math.floor(Math.random() * 7)];
+      newEl.style.position = 'absolute';
+      newEl.style.left = Math.floor(Math.random()*window.innerWidth) + 'px';
+      newEl.style.top = Math.floor(Math.random()*window.innerHeight) + 'px';
+      newEl.innerText = subArr[i][0];
+      document.body.appendChild(newEl)
+    }
+  }
+</script>
+
+</body>
+</html>

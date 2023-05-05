@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+  <script>
+    function changeBg(){
+      let color = document.getElementById("color");
+      let image = document.getElementById("image");
+      let input = document.getElementById("input");
+      let changedDiv = document.getElementById("changedDiv");
+
+      if(color.checked){
+        console.log("COLOR");
+        changedDiv.style.backgroundColor = input.value;
+        changedDiv.style.backgroundImage = null;
+      }
+      if(image.checked){
+        console.log("IMAGE");
+        changedDiv.style.backgroundImage = `url('${input.value}')`;
+      }
+    }
+  </script>
+</head>
+<body>
+
+<div id="changedDiv" style="height: 350px;">
+  <h2>Промена на позадина</h2>
+  <div>
+    <input type="radio" name="opt" id="color">
+    <label>Color</label>
+    <input type="radio" name="opt" id="image">
+    <label>Image</label>
+  </div>
+
+  <div>
+    <label>Value:</label>
+    <input type="text" id="input">
+  </div>
+
+  <div>
+    <button onclick="changeBg()">Промени</button>
+  </div>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <script>
+    let tries = 1;
+    let randomNum = 0;
+    function pogodi(){
+      let prikaz = document.getElementById('prikaz')
+      let obid = document.getElementById('obid')
+      let guess = document.getElementById('guess').value;
+      if(tries === 1){
+        while (randomNum < 1000){
+          randomNum = Math.floor(Math.random() * 9999);
+        }
+
+      }
+      if(tries === 0)
+        tries++;
+      else {
+        obid.innerHTML = "Обиди " + tries;
+        console.log(tries)
+
+        let namesto = 0;
+        let ima = 0;
+        let pogodok = guess.split("");
+        let tocno = randomNum.toString().split("");
+        console.log(pogodok)
+        console.log(tocno)
+
+        let pogodeno = [false, false, false, false]
+
+        if (pogodok[0] === tocno[0]) {
+          namesto++
+          pogodeno[0] = true;
+        }
+        if (pogodok[1] === tocno[1]) {
+          namesto++
+          pogodeno[1] = true;
+        }
+        if (pogodok[2] === tocno[2]) {
+          namesto++
+          pogodeno[2] = true;
+        }
+        if (pogodok[3] === tocno[3]) {
+          namesto++
+          pogodeno[3] = true;
+        }
+
+        if (namesto === 4) {
+          prikaz.innerHTML += `<p>Ima ${ima}, na mesto ${namesto}</p>`
+          prikaz.innerHTML += "<p>Pogodok!!!</p>"
+          return;
+        }
+
+        if (pogodok[0] === tocno[1] && tocno[1] !== tocno[0] && !pogodeno[1]) {
+          ima++
+        }
+        if (pogodok[0] === tocno[2] && tocno[2] !== tocno[0] && !pogodeno[2]) {
+          ima++
+        }
+        if (pogodok[0] === tocno[3] && tocno[3] !== tocno[0] && !pogodeno[3]) {
+          ima++
+        }
+
+        if (pogodok[1] === tocno[0] && tocno[0] !== tocno[1] && !pogodeno[0]) {
+          ima++
+        }
+        if (pogodok[1] === tocno[2] && tocno[2] !== tocno[1] && !pogodeno[2]) {
+          ima++
+        }
+        if (pogodok[1] === tocno[3] && tocno[3] !== tocno[1] && !pogodeno[3]) {
+          ima++
+        }
+
+        if (pogodok[2] === tocno[0] && tocno[0] !== tocno[2] && !pogodeno[0]) {
+          ima++
+        }
+        if (pogodok[2] === tocno[1] && tocno[1] !== tocno[2] && !pogodeno[1]) {
+          ima++
+        }
+        if (pogodok[2] === tocno[3] && tocno[3] !== tocno[2] && !pogodeno[3]) {
+          ima++
+        }
+
+        if (pogodok[3] === tocno[0] && tocno[0] !== tocno[3] && !pogodeno[0]) {
+          ima++
+        }
+        if (pogodok[3] === tocno[1] && tocno[1] !== tocno[3] && !pogodeno[1]) {
+          ima++
+        }
+        if (pogodok[3] === tocno[2] && tocno[2] !== tocno[3] && !pogodeno[2]) {
+          ima++
+        }
+
+        prikaz.innerHTML += `<p>Ima ${ima}, na mesto ${namesto}</p>`
+
+        if (namesto === 4) {
+          prikaz.innerHTML += "<p>Pogodok!!!</p>"
+        }
+
+        if (tries === 10) {
+          prikaz.innerHTML += `<p>Ne uspeavte da pogodite od 10 obidi. Brojot e ${randomNum}</p>`
+
+        }
+        tries++;
+      }
+    }
+
+    function restart(){
+      let prikaz = document.getElementById('prikaz')
+      let obid = document.getElementById('obid')
+      randomNum = 0;
+
+      prikaz.innerHTML = ""
+      tries = 0;
+      obid.innerHTML = "Обиди " + tries;
+    }
+  </script>
+</head>
+<body>
+<div>
+  <div style="text-align:right; float:left">
+    <p id="obid">Обиди 0</p>
+    <p>Погодок: <input id="guess" style="width:150px"/></p>
+    <button onclick="pogodi()">Погоди</button>
+    <button onclick="restart()">Од почеток</button>
+  </div>
+</div>
+<br/>
+<div id="prikaz" style="clear: both">
+</div>
+</body>
+</html>

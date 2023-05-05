@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JANUARY 2021</title>
+</head>
+<style>
+  div{
+    padding: 10px;
+  }
+  label{
+    width: 150px;
+    display: inline-block;
+  }
+</style>
+<body>
+<div>
+  <h1>Систем за сметки</h1>
+  <div><label>Име:</label><input type="text" id="ime"></div>
+  <div><label>Презиме: </label><input type="text" id="prezime"></div>
+  <div><label>ID: </label><input type="text" id="id"></div>
+  <div><label>Промет: </label><input type="text" id="promet"></div>
+  <input style="margin: 10px" type="button" value="Зачувај" onclick="zacuvaj()">
+  <h1>Внесени сметки</h1>
+  <div id="karticka" style="display: block"></div>
+  <div style="margin: -10px">
+    <h1>Платени сметки</h1>
+    <div id="plateni"></div>
+  </div>
+</div>
+</body>
+<script>
+
+  let data = '[{"ime":"Nikola","prezime":"Nikolovski","id":"NNN1asdfgh","promet":"1000"},'+'{"ime":"Nikolina","prezime":"Nikolovska","id":"NNN2asdfgh","promet":"3000"}]'
+  let newdata = JSON.parse(data);
+
+  window.onload = function (){
+    for(let i=0;i<newdata.length;i++){
+      let name = newdata[i].ime;
+      let surname = newdata[i].prezime;
+      let ids = newdata[i].id;
+      let suma = newdata[i].promet;
+
+      let innerhtml = "";
+      let boja;
+      if(suma>5000){
+        boja = "red";
+      }
+      else{
+        boja = "green";
+      }
+      //tuka smeniv da se stavi id na divot da e id od inputot (mesto nova sega e NN1asdfgh na primer)
+      //isto taka promenlivata promet ja staviv vo span element za da mozes da ja access-nes kako child dole vo for-ot
+      innerhtml+="<div id = "+ids+" style='background-color: "+boja+";width: 150px;height: 230px;float: left; margin: 10px; border: solid black 1px'><p>Сметка број: "+Math.round(Math.random()*100000)+"</p><p>Име: "+name+"</p><p>Презиме: "+surname+"</p><p>ID: "+ids+"</p><p>Промет: <span>"+suma+"</span></p><input type='button' value='Плати' onclick='plati(this)'></div>"
+      let newww = document.getElementById("karticka");
+      newww.innerHTML+=innerhtml
+    }
+  }
+
+  function zacuvaj() {
+    let name = document.getElementById("ime");
+    let surname = document.getElementById("prezime");
+    let idd = document.getElementById("id");
+    let promett = document.getElementById("promet");
+    let numUpper = (idd.value.match(/[A-Z]/g) || []).length;
+    let num = idd.value.replace(/[^0-9]/g, "").length;
+    console.log(numUpper);
+    console.log(num);
+    if(name.value==""||surname.value==""||idd.value==""||promett.value==""){
+      alert("Пополнете ги сите полиња!");
+      return;
+    }
+    let elementi = document.getElementById("karticka").children;
+    console.log(elementi);
+    for(let i=0;i<elementi.length;i++){
+      console.log(elementi[i].childNodes)
+      if(elementi[i].id !== undefined && elementi[i].id === idd.value){
+        console.log(elementi[i].children[4])
+        let nova = parseInt(promett.value);
+
+        console.log(elementi[i].children[4])
+        let stara = parseInt(elementi[i].children[4].children[0].innerHTML)
+        let finalna = nova + stara;
+        //odve mesto += da imas staviv = bidejki vo finalna veke ja imas presmetano stara + nova
+        elementi[i].children[4].children[0].innerHTML = finalna.toString();
+        return;
+      }
+    }
+    console.log(idd.value)
+    if (checkID(idd.value)===false) {
+      alert("Внесете валиден идентификациски број!");
+      return;
+    }
+    let innerhtml = "";
+    let boja;
+    if(promett.value>5000){
+      boja = "red";
+    }
+    else{
+      boja = "green";
+    }
+    //isto i odve id-to e od inputot zemeno
+    innerhtml+="<div id = "+ idd.value + " style='background-color: "+boja+";width: 150px;height: 230px;float: left; margin: 10px; border: solid black 1px'><p>Сметка број: "+Math.round(Math.random()*100000)+"</p><p>Име: "+name.value+"</p><p>Презиме: "+surname.value+"</p><p>ID: "+idd.value+"</p><p>Промет: <span>"+promett.value+"</span></p><input type='button' value='Плати' onclick='plati(this)'></div>"
+    let newww = document.getElementById("karticka");
+    newww.innerHTML+=innerhtml;
+
+    function checkID(id) {
+      return (id.length === 10 && numUpper >=3 && num >=1);
+    }
+
+    name.value=" ";
+    surname.value = " ";
+    idd.value = " ";
+    promett.value =" ";
+  }
+  function plati(elem){
+    let parent = elem.parentNode;
+    parent.style.opacity=1;
+    let myint = setInterval(function (){
+      parent.style.opacity-=0.1;
+    },200)
+    setTimeout(function (){
+      clearInterval(myint);
+      parent.style.opacity = 1;
+      let lista = document.getElementById("plateni");
+      lista.append(parent);
+    },2000)
+  }
+</script>
+</html>

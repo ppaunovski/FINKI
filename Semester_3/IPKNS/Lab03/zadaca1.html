@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function remove(arr, j){
+            for(let i = j; i<arr.length-1; i++){
+                arr[i] = arr[i+1];
+            }
+            arr.pop();
+        }
+        function func(arr){
+            for(let i=0; i<arr.length; i++){
+                for(let j=i+1; j<arr.length; j++){
+                    if(arr[i] === arr[j]){
+                        remove(arr, j);
+                    }
+                }
+            }
+            return arr;
+        }
+
+        console.log(func([1,2,3,4,5,1,6,2,7,3,8,4,9,5,0]));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

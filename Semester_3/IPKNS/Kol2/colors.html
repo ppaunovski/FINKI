@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p>Colors</p>
+<input type="text" id="colors" value="red.green.blue.purple" >
+<p>Delimiter</p>
+<input type="text" id="delimiter" value=".">
+<button onclick="draw()">Draw</button>
+
+<div id="draw"></div>
+
+<script>
+  let colors = document.getElementById('colors')
+  let delimiter = document.getElementById('delimiter')
+  let drawDiv = document.getElementById('draw')
+  function draw(){
+    let colArr = colors.value.split(delimiter.value);
+    drawDiv.innerHTML = '';
+    for(let i=0; i<colArr.length; i++){
+      drawDiv.innerHTML += `<div onclick="deleteBox(this)" style="width: 50px; height: 50px; float: left; background-color: ${colArr[i]}"></div>`
+
+    }
+  }
+
+  function deleteBox(that){
+    console.log(that.style.backgroundColor);
+    let cols = colors.value.split(delimiter.value);
+    cols = cols.filter(s => s!==that.style.backgroundColor);
+    //colors.value=cols;
+    console.log(cols);
+    let newCols = '';
+    for(let i=0; i<cols.length; i++){
+      newCols += cols[i]
+      if(i !== cols.length-1){
+        newCols += delimiter.value;
+      }
+    }
+    console.log(newCols)
+    colors.value = newCols
+    draw()
+  }
+</script>
+</body>
+</html>

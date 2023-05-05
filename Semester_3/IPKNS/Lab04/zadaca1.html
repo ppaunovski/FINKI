@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+  <style>
+    td, th{
+      border: solid black 2px;
+    }
+  </style>
+
+  <script>
+    let arrOfInputs = [];
+    function addStatement(){
+      let name = document.getElementById("name");
+      let surname = document.getElementById("surname");
+      let index = document.getElementById("index");
+      let subject = document.getElementById("subject");
+      let grade = document.getElementById("grade");
+      let placeToAdd = document.getElementById("placeToAdd");
+
+      let obj = {
+        name: name.value,
+        surname: surname.value,
+        index: index.value,
+        subject: subject.value,
+        grade: grade.value,
+      }
+
+      arrOfInputs.push(obj);
+
+      placeToAdd.innerHTML += `<tr>
+        <td>${name.value}</td>
+        <td>${surname.value}</td>
+        <td>${index.value}</td>
+        <td>${subject.value}</td>
+        <td>${grade.value}</td>
+ </tr>`
+
+      name.value = "";
+      surname.value = "";
+      index.value = "";
+      subject.value = "";
+      grade.value = "5 (пет)";
+    }
+  </script>
+</head>
+<body>
+
+<div>
+  <label>Име:</label>
+  <input type="text" required id="name">
+</div>
+
+<div>
+  <label>Презиме:</label>
+  <input type="text" required id="surname">
+</div>
+
+<div>
+  <label>Индекс:</label>
+  <input type="text" required id="index">
+</div>
+
+<div>
+  <label>Предмет:</label>
+  <input type="text" required id="subject">
+</div>
+
+<div>
+  <label>Оцена:</label>
+  <select id="grade">
+    <option>5 (пет)</option>
+    <option>6 (шест)</option>
+    <option>7 (седум)</option>
+    <option>8 (осум)</option>
+    <option>9 (девет)</option>
+    <option>10 (десет)</option>
+  </select>
+</div>
+
+<div>
+  <button onclick={addStatement()}>Внеси</button>
+</div>
+
+<div>
+  <table style="border: black solid 2px">
+    <thead>
+      <th>Име</th>
+      <th>Презиме</th>
+      <th>Индекс</th>
+      <th>Предмет</th>
+      <th>Оцена</th>
+    </thead>
+    <tbody id="placeToAdd">
+
+    </tbody>
+  </table>
+</div>
+
+
+
+</body>
+</html>

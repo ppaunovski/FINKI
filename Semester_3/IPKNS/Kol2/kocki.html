@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+      #kocki{
+          display: flex;
+          margin-bottom: 20px;
+      }
+    .kocka{
+      width: 50px;
+      height: 50px;
+      border: 2px solid black;
+      margin-right: 10px;
+      margin-top: 10px;
+      font-size: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+<input type="number" id="input" value="2" max="12" min="2">
+<input type="button" onclick="diceRoll()" value="ROLL">
+
+<div id="kocki">
+  <div id="kocka1" class="kocka"></div>
+  <div id="kocka2" class="kocka"></div>
+
+</div>
+
+<button onclick="showHistory()">History to JSON</button>
+
+
+
+
+
+<script>
+  let json = '[]';
+
+  let kocka1 = document.getElementById('kocka1')
+  let kocka2 = document.getElementById('kocka2')
+  let input = document.getElementById('input');
+
+  let diceResult1;
+  let diceResult2;
+    let count = 0;
+
+  function diceRoll(){
+      input.style.backgroundColor = 'white'
+      interval = setInterval(roll, 200);
+
+      counter = setInterval(timer, 1000);
+  }
+
+  function roll(){
+      kocka1.innerText = (Math.floor(Math.random()*6) + 1) + "";
+      kocka2.innerText = (Math.floor(Math.random()*6) + 1) + "";
+  }
+
+  function timer(){
+      count++;
+      if(count > 3){
+          clearInterval(counter);
+          clearInterval(interval);
+          diceResult1 = kocka1.innerText;
+          diceResult2 = kocka2.innerText;
+          console.log(diceResult1 + " " + diceResult2)
+          checkResult();
+      }
+  }
+
+  function checkResult(){
+      if(parseInt(diceResult1) + parseInt(diceResult2) === Number(input.value)){
+          input.style.backgroundColor = 'green';
+      }
+      else {
+          input.style.backgroundColor = 'red';
+      }
+
+      let newObj = {guess: input.value, realValues: [diceResult1, diceResult2]};
+      let prevJSON = JSON.parse(json);
+      console.log(prevJSON)
+      prevJSON.push(newObj)
+      //'[{"input":7, "dice":[2,5]}]'
+      json = JSON.stringify(prevJSON);
+      console.log(json)
+  }
+
+  function showHistory(){
+      alert(json);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+      img{
+        width: 50px;
+        position: absolute;
+        top: 0;
+      }
+    </style>
+
+</head>
+<body>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkSLlR9Hj-OxlEy2yk304q9xTHmOWgYsEe1Q&usqp=CAU">
+<img src="https://static.vecteezy.com/system/resources/previews/001/194/635/original/snowflake-png.png">
+<img src="https://img.lovepik.com/free-png/20210918/lovepik-snowflake-png-image_400256995_wh1200.png">
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgqwMJw6uG_uUex7bliTPbkD6AwyClnL8qWi-2x2_2sMKE6i4aglJN391U2saDcxckCpQ&usqp=CAU">
+<img src="https://w7.pngwing.com/pngs/201/866/png-transparent-blue-snowflake-illustration-snowflake-snowflakes-file-winter-image-file-formats-text.png">
+
+
+<script>
+  let images = document.getElementsByTagName("img");
+  let speed;
+  console.log(images);
+  for(let i=0; i<images.length; i++){
+      speed = Math.floor(Math.random()*10)
+    images[i].style.left = Math.floor(Math.random()*1000) + 'px';
+    images[i].style.top = '-100px'
+    console.log(images[i].style.top)
+    let interval = setInterval(dropDown, speed, images[i])
+
+    function dropDown(image){
+        let top = image.style.top;
+        let parts = top.split("px");
+        let pos = parseInt(parts[0]);
+        console.log(pos);
+        image.style.top = pos + 2 + 'px';
+
+        if(pos > 300){
+            image.style.top = -100 + 'px';
+            images[i].style.left = Math.floor(Math.random()*1000) + 'px';
+            speed = Math.floor(Math.random()*10)
+        }
+    }
+  }
+
+
+</script>
+</body>
+</html>

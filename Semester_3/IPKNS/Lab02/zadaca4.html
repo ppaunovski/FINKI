@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script>
+    function calc(){
+      let real1 = document.getElementById('real1');
+      let real2 = document.getElementById('real2');
+      let img1 = document.getElementById('img1');
+      let img2 = document.getElementById('img2');
+      let realRes = document.getElementById('real3');
+      let imgRes = document.getElementById('img3');
+      real1 = real1.value;
+      real2 = real2.value;
+      img1 = img1.value;
+      img2 = img2.value;
+      if(real1 === "" || real2 === "" || img1 === "" || img2 === ""){
+        alert("Add all inputs");
+        return;
+      }
+      realRes.value = (parseInt(real1, 10) + parseInt(real2, 10)).toString();
+      imgRes.value = (parseInt(img1, 10) + parseInt(img2, 10)).toString();
+
+    }
+  </script>
+</head>
+<body>
+  <div>
+    <input id="real1" type="text">
+    <input id="img1" type="text">
+    <span>i</span>
+  </div>
+  <div>
+    <input id="real2" type="text">
+    <input id="img2" type="text">
+    <span>i</span>
+  </div>
+  <button onclick={calc()}>Add</button><div>
+    <input id="real3" type="text">
+    <input id="img3" type="text">
+    <span>i</span>
+  </div>
+</body>
+</html>

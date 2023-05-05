@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script>
+    let number1 = prompt("enter number 1");
+    let number2 = prompt("enter number 2");
+    let number3 = prompt("enter number 3");
+
+    let n1;
+    let n2;
+    let n3;
+
+    if(number1.charAt(0) === '-'){
+      n1 = parseInt(number1.substring(1)) * (-1);
+    }
+    else {
+      n1 = parseInt(number1);
+    }
+
+    if(number2.charAt(0) === '-'){
+      n2 = parseInt(number2.substring(1)) * (-1);
+    }
+    else {
+      n2 = parseInt(number2);
+    }
+
+    if(number3.charAt(0) === '-'){
+      n3 = parseInt(number3.substring(1)) * (-1);
+    }
+    else {
+      n3 = parseInt(number3);
+    }
+
+    if(n1 * n2 * n3 < 0) document.write("-");
+    else document.write("+");
+  </script>
+</head>
+<body>
+
+</body>
+</html>

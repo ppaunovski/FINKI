@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .correct{
+            background-color: green;
+        }
+        .match{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<script>
+
+  let data = '["bukva", "jazik", "vokal", "basna", "misla", "tablo"]';
+  data = JSON.parse(data);
+
+  let key = data[Math.floor(Math.random()*6)].split("");
+    let map = new Map();
+    for(let i=0; i<5; i++){
+        if(!map.has(key[i])){
+            map.set(key[i], 1);
+        }
+        else {
+            let prev= map.get(key[i]);
+            map.set(key[i], prev+1);
+        }
+    }
+    console.log(map);
+  let newDivEl;
+  initializeInputs()
+  function initializeInputs(){
+      newDivEl =  document.createElement('div');
+      for(let i=0; i<5; i++){
+          let newInp = document.createElement('input');
+          newInp.setAttribute('type', 'text');
+          newInp.style.width = '50px'
+          newInp.style.height = '50px'
+          newInp.style.border = '2px black solid'
+          newInp.style.fontSize = "40px"
+
+          newInp.addEventListener("keydown",  (event) => {
+              console.log(event)
+              if(event.code === 'Enter'){
+                  tryWord();
+              }
+          })
+
+          newDivEl.appendChild(newInp);
+
+      }
+      document.body.appendChild(newDivEl);
+  }
+
+  console.log(key)
+
+  let naMestoCounter = 0;
+  let flag = true;
+  function tryWord(){
+
+      let elem = newDivEl.childNodes;
+      let letters = []
+      for(let i=0; i<elem.length; i++){
+          if(elem[i].value.length === 0 || elem[i].value.length > 1){
+              alert("INVALID INPUT")
+              flag = false;
+              break;
+          }
+          letters.push(elem[i].value)
+      }
+
+      if(flag){
+          processLetters(letters, elem);
+      }
+  }
+
+  function processLetters(letters, elem){
+      console.log(map)
+
+      letters.forEach((l, index) => {
+          if(key[index] === l){
+              elem[index].className = 'correct';
+              naMestoCounter++;
+              let prev = map.get(l);
+              map.set(l, prev-1);
+          }
+      })
+
+      console.log(map)
+      for(let i=0; i<5; i++){
+          for(let j=0; j<5; j++){
+              if(i !== j && letters[j] === key[i]){
+                  //console.log(elem[i].className + " " + letters[i]);
+                  if(map.get(letters[j]) > 0){
+                          elem[j].className = 'match';
+                          let prev = map.get(letters[j]);
+                          map.set(letters[j], prev-1);
+
+                  }
+              }
+          }
+      }
+
+      elem.forEach(e => {
+          e.setAttribute('disabled', 'true')
+          e.style.color = 'black'
+      })
+
+      if(naMestoCounter !== 5){
+          initializeInputs()
+      }
+      else {
+          alert('POBEDIVTEEEEEEEEEEEEE')
+          return;
+      }
+
+      naMestoCounter = 0;
+      for(let i=0; i<5; i++){
+          if(!map.has(key[i])){
+              map.set(key[i], 0);
+          }
+          else {
+              let prev= map.get(key[i]);
+              map.set(key[i], 0);
+          }
+      }
+
+      for(let i=0; i<5; i++){
+          if(!map.has(key[i])){
+              map.set(key[i], 1);
+          }
+          else {
+              let prev = map.get(key[i]);
+              map.set(key[i], prev+1);
+          }
+      }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<head>
+    <script>
+        function calculate(){
+            let a = document.getElementById('a');
+            let b = document.getElementById('b');
+
+            let plus = document.getElementById('plus');
+            let minus = document.getElementById('minus');
+            let mnoz = document.getElementById('mnoz');
+            let del = document.getElementById('del');
+            let sin = document.getElementById('sin');
+            let cos = document.getElementById('cos');
+            let tg = document.getElementById('tg');
+            let cel = document.getElementById('cel');
+            let stepen = document.getElementById('stepen');
+            let koren = document.getElementById('koren');
+
+            let rezultat = document.getElementById('rezultat');
+
+            if(plus.checked === true){
+                console.log("plus")
+                rezultat.innerHTML = parseFloat(a.value) + parseFloat(b.value);
+            }
+            if(minus.checked === true){
+                console.log("minus")
+                rezultat.innerHTML = parseFloat(a.value) - parseFloat(b.value);
+            }
+            if(mnoz.checked === true){
+                console.log("mnoz")
+                rezultat.innerHTML = parseFloat(a.value) * parseFloat(b.value);
+            }
+            if(del.checked === true){
+                console.log("del")
+                rezultat.innerHTML = parseFloat(a.value) / parseFloat(b.value);
+            }
+            if(sin.checked === true){
+                console.log("sin")
+                rezultat.innerHTML = Math.sin(parseFloat(a.value))
+            }
+            if(cos.checked === true){
+                console.log("cos")
+                rezultat.innerHTML = Math.cos(parseFloat(a.value))
+            }if(tg.checked === true){
+                console.log("tg")
+                rezultat.innerHTML = Math.tan(parseFloat(a.value))
+            }
+            if(cel.checked === true){
+                console.log("cel")
+                rezultat.innerHTML = Math.floor(parseFloat(a.value))
+            }
+            if(stepen.checked === true){
+                console.log("stepen")
+                rezultat.innerHTML = Math.pow(parseFloat(a.value), parseInt(b.value))
+            }
+            if(koren.checked === true){
+                console.log("koren")
+                rezultat.innerHTML = Math.sqrt(parseFloat(a.value))
+            }
+
+
+
+
+        }
+    </script>
+</head>
+<body>
+<h1>Калкулатор</h1>
+<div>
+    <div style="text-align:left; float:left">
+        <p>а <input id="a" style="width:15px"/>
+            b <input id="b" style="width:15px"/></p>
+        <p>
+            <input id="plus" type="radio" name="oper" checked>a+b
+            <input id="minus" type="radio" name="oper">a-b
+            <input id="mnoz" type="radio" name="oper" >a*b
+            <input id="del" type="radio" name="oper" >a/b
+            <br>
+            <input id="sin" type="radio" name="oper">sin(a)
+            <input id="cos" type="radio" name="oper">cos(a)
+            <input id="tg" type="radio" name="oper">tg(a)
+            <br>
+            <input id="cel" type="radio" name="oper">[a]
+            <input id="stepen" type="radio" name="oper">a<sup>b</sup>
+            <input id="koren" type="radio" name="oper">&radic;<span style="text-decoration:
+overline">a</span>
+        </p>
+        <button onclick="calculate()">Пресметај</button>
+        <p id="rezultat"></p>
+    </div>
+</div>
+<br/>
+</body>
+</html>

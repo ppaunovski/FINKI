@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p id="randomBrojki"></p>
+<input type="text" id="input">
+<button id="btn" onclick="calculate()">Submit</button>
+<p>Preostanato vreme <span id="timer"></span> sekundi.</p>
+
+<script>
+  let randomNumbers = [];
+  let count = 60;
+  let timer = document.getElementById('timer');
+  let btn = document.getElementById('btn');
+  let input = document.getElementById('input');
+
+  timer.innerText = count + "";
+  for(let i=0; i<6; i++){
+    // 10 - 99
+      if(i < 2){
+          //1-9
+          randomNumbers[i] = Math.floor(10 - Math.random()*9);
+      }
+      else if(i < 4){
+          // 10 - 99
+          randomNumbers[i] = Math.floor(100 - Math.random()*90);
+      }
+      else {
+          // 100 - 999
+          randomNumbers[i] = Math.floor(1000 - Math.random()*900);
+      }
+  }
+  let randomBrojki = document.getElementById('randomBrojki');
+  for(let i=0; i<6; i++){
+      if(i === 5){
+          randomBrojki.textContent += "= ";
+      }
+      randomBrojki.textContent += randomNumbers[i];
+      randomBrojki.textContent += " ";
+  }
+  console.log(randomNumbers)
+  let started = false
+  function calculate(){
+      if(!started){
+          interval = setInterval(counter, 1000);
+          started = true;
+      }
+
+      console.log(input.value);
+      let arr = input.value.split(" ");
+      console.log(arr)
+
+      //1. ZAGRADI
+
+      //2. MOZHENJE
+
+      //3. SOBIRANJE/ODZEMANJE
+
+      if(arr.includes("(")){
+          let stackBracketsOperators = []
+          let stackNumbers = []
+          let opened = false
+          for(let i=0; i<arr.length; i++){
+              if(arr[i] === '('){
+                  stackBracketsOperators.push(arr[i]);
+                  continue;
+              }
+
+              if(arr[i] === ')'){
+                 // console.log(stackNumbers)
+                  //console.log(stackBracketsOperators)
+                  let exp = [];
+                  let lastFromBO ;
+                  while ((lastFromBO = stackBracketsOperators.pop()) !== '('){
+                      exp.push(stackNumbers.pop());
+                      exp.push(lastFromBO);
+                  }
+                  exp.push(stackNumbers.pop())
+                  console.log(exp)
+                  calculateExpression(exp)
+              }
+              else if(arr[i] === '*' || arr[i] === "+" || arr[i] === '-'){
+                  stackBracketsOperators.push(arr[i]);
+              }
+              else {
+                  stackNumbers.push(arr[i])
+              }
+
+          }
+      }
+  }
+
+  function calculateExpression(expression){
+      //console.log(expression)
+      let stack = [];
+      for(let i=0; i<expression.length; i++){
+          for (let j=0; j<expression.length; j++){
+              if(expression[j] === '*'){
+
+              }
+          }
+      }
+  }
+
+  function counter(){
+        --count;
+        timer.innerText = count+""
+        if(count === 0){
+            clearInterval(interval);
+            input.setAttribute("disabled", "true");
+            btn.setAttribute("disabled", "true")
+        }
+  }
+</script>
+</body>
+</html>

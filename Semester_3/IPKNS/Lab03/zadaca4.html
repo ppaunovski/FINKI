@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        let books = [];
+        class Book{
+            constructor(title, author, read) {
+                this.title = title;
+                this.author = author;
+                this.read = read;
+            }
+
+            printBook(){
+                if(this.read){
+                    return "You already read \"" + this.title + "\" by " + this.author + "\n";
+                }
+                else return "You still need to read  \"" + this.title + "\" by " + this.author + "\n";
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div>
+    <label>Title</label>
+    <input id="title" type="text">
+</div>
+
+<div>
+    <label>Author</label>
+    <input id="author" type="text">
+</div>
+
+<div>
+    <label>Read</label>
+    <label>yes</label>
+    <input type="radio" name="read" id="yes">
+    <label>no</label>
+    <input type="radio" name="read" id="no">
+</div>
+
+<button onclick="add()">Add Book</button>
+<button onclick="print()">Print</button>
+
+<div id="display">
+
+</div>
+
+
+<script>
+
+    function add(){
+        let title = document.getElementById("title");
+        let author = document.getElementById("author");
+        let yes = document.getElementById("yes");
+        let no = document.getElementById("no");
+
+        let read = yes.checked;
+
+        let book = new Book(title.value, author.value, read);
+
+        books.push(book);
+    }
+
+    function print(){
+        let display = document.getElementById("display");
+        display.innerHTML = "";
+        books.forEach(book => display.innerHTML += book.printBook() + "<br/>");
+    }
+
+</script>
+
+</body>
+</html>

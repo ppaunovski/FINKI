@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script>
+    function addItems(){
+      let input = document.getElementById("input");
+      let type = document.getElementById("type");
+      let displayItems = document.getElementById("displayItems");
+      let arr = input.value.split(",");
+      let data = "";
+      if(type.value === "Radio button"){
+        for(string of arr){
+          data += `<input type="radio" name="xd"/> <label>${string}</label>`
+        }
+      }
+      else {
+        for(string of arr){
+          data += `<input type="checkbox"/> <label>${string}</label>`
+        }
+      }
+
+      displayItems.innerHTML = data;
+    }
+  </script>
+</head>
+<body>
+
+<div>
+  <label>Items:</label>
+  <input type="text" id="input">
+</div>
+
+<div>
+  <label>Type:</label>
+  <select id="type">
+    <option>Radio button</option>
+    <option>Check box</option>
+  </select>
+</div>
+
+<div>
+  <button onclick="addItems()">Прикажи</button>
+</div>
+
+<div id="displayItems">
+
+</div>
+
+</body>
+</html>

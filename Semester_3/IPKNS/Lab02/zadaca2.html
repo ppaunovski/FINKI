@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script>
+    function displayImage(){
+      let img1 = "https://designmodo.com/wp-content/uploads/2014/07/free-photos.jpg";
+      let img2 = "https://farm5.staticflickr.com/4060/4567292488_5d3f4b05f6_z.jpg";
+      let img3 = "https://wallup.net/wp-content/uploads/2017/03/28/401266-landscape-road-forest-748x421.jpg";
+      let arr = [img1, img2, img3];
+
+      let img = document.getElementById("img");
+
+      let index = (Math.floor(Math.random()*3));
+      console.log(index);
+
+      img.innerHTML = "<img src='" + arr[index] +
+          "'>";
+    }
+  </script>
+</head>
+<body>
+  <button onclick="displayImage()">Display random image</button>
+  <div id="img"></div>
+</body>
+</html>

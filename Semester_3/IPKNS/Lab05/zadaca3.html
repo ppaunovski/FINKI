@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script>
+    </script>
+</head>
+<body>
+<style>
+    .found{
+        pointer-events: none;
+    }
+    .square{
+        width: 50px;
+        height: 50px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .closed{
+        background-color: red;
+    }
+    .closed p{
+        display: none;
+    }
+    .opened{
+        background-color: white;
+    }
+    .opened p{
+        display: block;
+    }
+    p{
+        position: absolute;
+    }
+</style>
+<h1>Meморија</h1>
+<div style="text-align:left; float:left">
+    <table border="1">
+        <tr>
+            <td onclick="toggle(this)" id="11"><div class="square closed"><p>1</p></div></td>
+            <td  onclick="toggle(this)" id="_12"><div class="square closed"><p>1</p></div></td>
+            <td onclick="toggle(this)" id="_13"><div class="square closed"><p>2</p></div></td>
+            <td  onclick="toggle(this)" id="_14"><div class="square closed"><p>2</p></div></td>
+        </tr>
+        <tr>
+            <td onclick="toggle(this)" id="_21"><div class="square closed"><p>3</p></div></td>
+            <td onclick="toggle(this)" id="_22"><div class="square closed"><p>3</p></div></td>
+            <td onclick="toggle(this)" id="_23"><div class="square closed"><p>4</p></div></td>
+            <td onclick="toggle(this)" id="_24"><div class="square closed"><p>4</p></div></td>
+        </tr>
+        <tr>
+            <td onclick="toggle(this)" id="_31"><div class="square closed"><p>5</p></div></td>
+            <td onclick="toggle(this)" id="_32"><div class="square closed"><p>5</p></div></td>
+            <td onclick="toggle(this)" id="_33"><div class="square closed"><p>6</p></div></td>
+            <td onclick="toggle(this)" id="_34"><div class="square closed"><p>6</p></div></td>
+        </tr>
+        <tr>
+            <td onclick="toggle(this)" id="_41"><div class="square closed"><p>7</p></div></td>
+            <td onclick="toggle(this)" id="_42"><div class="square closed"><p>7</p></div></td>
+            <td onclick="toggle(this)" id="_43"><div class="square closed"><p>8</p></div></td>
+            <td onclick="toggle(this)" id="_44"><div class="square closed"><p>8</p></div></td>
+        </tr>
+    </table>
+    <input type="submit" onclick="restartGame()" value="RESET"/>
+</div>
+<br/>
+
+<script>
+    let _11 = document.getElementById("_11")
+    let _12 = document.getElementById("_12")
+    let _13 = document.getElementById("_13")
+    let _14 = document.getElementById("_14")
+    let _21 = document.getElementById("_21")
+    let _22 = document.getElementById("_22")
+    let _23 = document.getElementById("_23")
+    let _24 = document.getElementById("_24")
+    let _31 = document.getElementById("_31")
+    let _32 = document.getElementById("_32")
+    let _33 = document.getElementById("_33")
+    let _34 = document.getElementById("_34")
+    let _41 = document.getElementById("_41")
+    let _42 = document.getElementById("_42")
+    let _43 = document.getElementById("_43")
+    let _44 = document.getElementById("_44")
+    let opened = 0;
+
+    let numbers = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8]
+    let windows = [_11, _12, _13, _14, _21, _22, _23, _24, _31, _32, _33, _34, _41, _42, _43, _44];
+
+    function restartGame(){
+        numbers = [1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8]
+        windows = [_11, _12, _13, _14, _21, _22, _23, _24, _31, _32, _33, _34, _41, _42, _43, _44]
+        randomize(numbers, windows);
+    }
+
+    function randomize(numbers, windows){
+        for(let i=numbers.length-1; i>=0; i--){
+            let random = Math.floor(Math.random()*i);
+            console.log(numbers[random]);
+        }
+    }
+
+    let openedWindows = [];
+
+    function areDuplicates(openedWindows){
+        let info1 = openedWindows[0].childNodes[0].childNodes[0].innerHTML;
+        let info2 = openedWindows[1].childNodes[0].childNodes[0].innerHTML;
+        return info1 === info2;
+
+    }
+
+    function toggle(that){
+        console.log(that.childNodes[0].classList)
+
+        if(that.childNodes[0].classList[1] === 'closed'){
+            that.childNodes[0].classList.replace('closed', 'opened')
+            openedWindows.push(that);
+            console.log(openedWindows)
+            opened++;
+        }
+        else if(that.childNodes[0].classList[1] === 'opened'){
+            that.childNodes[0].classList.replace('opened', 'closed')
+            opened--;
+        }
+
+        if(opened === 2){
+            console.log(2)
+            if(areDuplicates(openedWindows)){
+               openedWindows[0].childNodes[0].classList.add('found');
+               openedWindows[1].childNodes[0].classList.add('found');
+               openedWindows[0].onclick = "";
+               openedWindows[1].onclick = "";
+               openedWindows = [];
+               opened = 0;
+            }
+            else{
+                let myInterval = setTimeout(closeWindows, 250, openedWindows);
+                function closeWindows(){
+                    openedWindows[0].childNodes[0].classList.replace('opened', 'closed')
+                    openedWindows[1].childNodes[0].classList.replace('opened', 'closed')
+                    openedWindows = [];
+                    opened = 0;
+                }
+
+            }
+        }
+    }
+
+
+
+</script>
+</body>

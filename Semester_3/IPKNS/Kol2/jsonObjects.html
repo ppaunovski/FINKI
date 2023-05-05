@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<input type="button" onclick="moveLeft()" value="<">
+<input type="button" onclick="moveRight()" value=">">
+
+<div id="draw"></div>
+
+<script>
+    let data = '[{"background-color":"red", "width":"100px", "height":"100px"},' +
+        '{"background-color":"green", "width":"50px", "height":"100px"},' +
+        '{"background-color":"blue", "width":"100px", "height":"50px"}]'
+    let objects = JSON.parse(data);
+    let draw = document.getElementById('draw');
+    let index = 0;
+
+    let newDiv = document.createElement('div');
+    newDiv.style.backgroundColor = objects[index]["background-color"];
+    newDiv.style.width = objects[index].width;
+    newDiv.style.height = objects[index].height;
+    newDiv.style.left = '0px'
+    newDiv.style.position = 'absolute'
+    document.body.appendChild(newDiv);
+    function moveRight(){
+
+        let int = setInterval(moveR, 10, newDiv);
+
+        function moveR(elem){
+            let pos = Number(elem.style.left.split("px")[0]);
+            //console.log(pos)
+
+            elem.style.left = pos + 1 + 'px';
+            console.log(window.innerWidth)
+            if(pos === window.innerWidth - Number(elem.style.width.split('px')[0])){
+                console.log("STOP")
+                clearInterval(int)
+            }
+            if(pos === 0){
+                clearInterval(int);
+            }
+            if(pos > window.innerWidth){
+                elem.style.left = '-100px'
+                index++;
+                if(index >= objects.length){
+                    index=0;
+                }
+                console.log(index);
+                newDiv.style.backgroundColor = objects[index]["background-color"];
+                newDiv.style.width = objects[index].width;
+                newDiv.style.height = objects[index].height;
+                newDiv.style.position = 'absolute'
+                newDiv.style.left = '-100px'
+            }
+        }
+
+    }
+
+    function moveLeft(){
+        let int = setInterval(moveL, 10, newDiv);
+
+        function moveL(elem){
+            let pos = Number(elem.style.left.split("px")[0]);
+            //console.log(pos)
+
+            elem.style.left = pos - 1 + 'px';
+            console.log(pos)
+            if(pos ===  0){
+                //console.log("STOP")
+                clearInterval(int)
+            }
+            if(pos === window.innerWidth - Number(elem.style.width.split('px')[0])){
+                clearInterval(int);
+            }
+            if(pos < - Number(elem.style.width.split('px')[0])){
+                elem.style.left = window.innerWidth + 100 + 'px'
+                index++;
+                if(index >= objects.length){
+                    index=0;
+                }
+                //console.log(index);
+                newDiv.style.backgroundColor = objects[index]["background-color"];
+                newDiv.style.width = objects[index].width;
+                newDiv.style.height = objects[index].height;
+                newDiv.style.position = 'absolute'
+                newDiv.style.left = window.innerWidth+'px'
+                //clearInterval(int);
+            }
+        }
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+
+  <script>
+    function areFieldsEmpty(ime, prezime, tablica, starost, da, ne){
+      if(ime.value === "" ||
+              prezime.value === "" ||
+              tablica.value === "" ||
+              starost.value === "" ||
+              (da.checked === false && ne.checked === false)){
+        return true;
+      }
+    }
+
+    function isValidTablica(tablica) {
+        tablica = tablica.value;
+        if(tablica.length !== 10) return false;
+        if(tablica.charAt(0) > 'Z' || tablica.charAt(0) < 'A') return false;
+        if(tablica.charAt(1) > 'Z' || tablica.charAt(1) < 'A') return false;
+        if(tablica.charAt(8) > 'Z' || tablica.charAt(8) < 'A') return false;
+        if(tablica.charAt(9) > 'Z' || tablica.charAt(9) < 'A') return false;
+
+        if(tablica[1].charAt(3) > '9' || tablica.charAt(3) < '0') return false;
+        if(tablica[1].charAt(4) > '9' || tablica.charAt(4) < '0') return false;
+        if(tablica[1].charAt(5) > '9' || tablica.charAt(5) < '0') return false;
+        if(tablica[1].charAt(6) > '9' || tablica.charAt(6) < '0') return false;
+        return true;
+    }
+
+    function isTablicaGolden(tablica) {
+      tablica = tablica.value;
+      tablica = tablica.split("-");
+      if(tablica[1].charAt(0) === tablica[1].charAt(1)
+              && tablica[1].charAt(1) === tablica[1].charAt(2)
+      && tablica[1].charAt(2) === tablica[1].charAt(3)) return true;
+      return false;
+    }
+
+    function deleteSmetka(elem){
+      console.log(elem.parentElement.parentElement)
+      elem.parentElement.parentElement.remove();
+      countSmetki();
+    }
+
+    function setDiable(elem){
+      console.log(elem);
+      let parentDiv = elem.parentElement;
+      let buttons = parentDiv.childNodes;
+      console.log(buttons.item(1));
+      buttons.item(1).setAttribute('disabled', true);
+      buttons.item(3).setAttribute('disabled', true);
+      console.log(buttons.item(1));
+    }
+
+    function countSmetki() {
+      let smetki = document.getElementById("smetki");
+      let vkupno = document.getElementById("vkupno_smetki");
+
+      let count = 0;
+      count = smetki.children.length;
+      vkupno.innerHTML = count.toString();
+    }
+
+    function generate(){
+      let ime = document.getElementById("ime");
+      let prezime = document.getElementById("prezime");
+      let tablica = document.getElementById("tablica");
+      let starost = document.getElementById("starost");
+      let da = document.getElementById("radio_da");
+      let ne = document.getElementById("radio_ne");
+      let rati = document.getElementById("rati");
+      let date = document.getElementById('date');
+
+      console.log(date.value);
+      date.value = '2021-12-03';
+      //date.setAttribute('disabled', 'true');
+
+      if(areFieldsEmpty(ime, prezime, tablica, starost, da , ne)){
+        alert("Popolnete gi site polinja!");
+        return;
+      }
+      if(!isValidTablica(tablica)){
+        alert("Inavlid tablica");
+        return;
+      }
+      let price = 3000;
+      if(isTablicaGolden(tablica)){
+        price += 1000;
+      }
+      if(da.checked === true){
+        price += 500;
+      }
+      let color;
+      let godini = parseInt(starost.value, 10);
+      if(godini > 30){
+        color = "red";
+      }
+      else color="green";
+
+      let soobrakjajki;
+      if(da.checked) soobrakjajki = "ima";
+      else soobrakjajki = "nema"
+
+      let smetki = document.getElementById("smetki");
+      let disable = "";
+
+      smetki.innerHTML += "<div class='" + color +
+              "'>" + "<p>" + ime.value +
+              "</p>" + "<p>" + prezime.value +
+              "</p>" + "<p>" + tablica.value +
+              "</p>" + "<p>" + starost.value +
+              "</p>" + "<p>" + soobrakjajki +
+              "</p>" + "<p>" + price +
+              "<p>rati: </p>" + rati.checked +
+              "</p>" + "<div class='buttons'> <button onclick='setDiable(this)'" + disable +
+              ">Plati</button> <button onclick='deleteSmetka(this)'>Izbrishi</button></div>" +
+              "</div>";
+      countSmetki();
+      let table = document.getElementById('table');
+      table.innerHTML += `<tr> <td>${ime.value}</td> <td>${prezime.value}</td> <td>${tablica.value}</td></tr>`
+      // ime.value = "";
+      // prezime.value = "";
+      // tablica.value = "";
+      // starost.value = "";
+      // da.checked = false;
+      // ne.checked = false;
+      // rati.checked = false;
+    }
+  </script>
+</head>
+<body>
+
+  <h2>Осигурување на возила</h2>
+  <div>
+    <span>IME</span>
+    <input id="ime" type="text">
+  </div>
+
+  <div>
+    <span>PREZIME</span>
+    <input id="prezime" type="text">
+  </div>
+
+  <div>
+    <span>TABLICA</span>
+    <input id="tablica" type="text">
+    >
+  </div>
+
+  <div>
+    <span>GODINI STAROST</span>
+    <input id="starost" type="text">
+  </div>
+
+  <div>
+    <span>Datum</span>
+    <input type="date" id="date">
+  </div>
+
+  <div>
+    <span>SOOBRAKJAJKA</span>
+    <input id="radio_da" name="radio" type="radio">
+    <span>da</span>
+    <input id="radio_ne" name="radio" type="radio">
+
+    <span>ne</span>
+  </div>
+
+  <div>
+    <input type="checkbox" id="rati">
+    <span>na rati</span>
+  </div>
+  <div>
+    <button onclick={generate()}>Generiraj smetka</button>
+  </div>
+
+  <h3>Smetki</h3>
+
+  <p>Vkupno smetki za plakjanje: <span id="vkupno_smetki"></span></p>
+
+  <div id="smetki"></div>
+
+  <table id="table" style="border: 1px solid black">
+    <thead>
+    <tr><th>ime</th> <th>prezime</th></tr>
+    </thead>
+  </table>
+
+
+  <style>
+    table{
+      border-collapse: collapse;
+    }
+    td{
+      border: 1px solid black;
+    }
+    .disabled{
+
+    }
+    .red{
+      background-color: indianred;
+      width: 150px;
+      height: 300px;
+      padding: 10px;
+      border: black 3px solid;
+      display: inline-block;
+    }
+    .green{
+      background-color: mediumseagreen;
+      width: 150px;
+      height: 300px;
+      padding: 10px;
+      border: black 3px solid;
+      display: inline-block;
+    }
+  </style>
+
+</body>
+</html>

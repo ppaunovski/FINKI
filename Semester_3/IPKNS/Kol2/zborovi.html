@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p id="tajmer"></p>
+<p id="bukvi"></p>
+<input id="input" type="text">
+<button onclick="tryWord()">Submit</button>
+<p id="text"></p>
+
+<script>
+    let started = false;
+  let arr = ['A', 'B', 'V', 'G', 'D', 'E', 'Z', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'H', 'C'];
+  console.log(arr.length)
+  let dic = '["nos", "sos", "bos", "voz", "bukva", "jazik", "vokal", "basna", "misla", "tablo", "jas", "ti", "nie", "vie", "nas", "vas", "prv","crv", "mie", "pie","odi"]';
+  console.log(JSON.parse(dic))
+  let dictionary = JSON.parse(dic);
+  let randomBukvi = [];
+  for(let i=0; i<10; i++){
+    randomBukvi[i] = arr[Math.floor(Math.random()*22)];
+  }
+  console.log(randomBukvi)
+  randomBukvi = randomBukvi.join(", ")
+  let bukvi = document.getElementById('bukvi');
+  let tajmer = document.getElementById('tajmer');
+  bukvi.innerText = randomBukvi;
+  let found = 0;
+  let counter = 60;
+  tajmer.innerText = `${counter}`
+    let map = new Map();
+  for(let i=0; i<dictionary.length; i++){
+      if(!map.has(dictionary[i])){
+          map.set(dictionary[i], false);
+      }
+  }
+
+
+    let text = document.getElementById('text');
+
+    text.innerText = `Ostanato vreme: ${counter}. Pogodeni zborovi: ${found}`;
+
+
+  function tryWord(){
+      if(!started){
+          started = true;
+          let int = setInterval(timer, 1000)
+          function timer(){
+              tajmer.innerText = `${counter--}`;
+              if(counter === 60){
+                  clearInterval(int)
+              }
+          }
+      }
+
+
+
+    let input = document.getElementById('input').value;
+    let inputArr = input.split("");
+    inputArr.forEach(letter => {
+      if(!randomBukvi.split("").includes(letter)){
+        return;
+      }
+    })
+
+    if(dictionary.includes(input)){
+        if(!map.get(input)){
+            found++;
+            map.set(input, true);
+        }
+    }
+
+    text.innerText = `Pogodeni zborovi: ${found}`;
+
+  }
+</script>
+</body>
+</html>

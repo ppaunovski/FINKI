@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script>
+    class Cylinder{
+        constructor(radius, height) {
+            this.radius = radius;
+            this.height = height;
+        }
+
+        volume(){
+            return Math.PI*Math.pow(this.radius, 2)*this.height;
+        }
+    }
+
+  </script>
+</head>
+<body>
+    <div>
+        <label>Radius</label>
+        <input id="radius" type="text">
+    </div>
+
+    <div>
+        <label>Height</label>
+        <input id="height" type="text">
+    </div>
+
+    <div>
+        <label>Volume</label>
+        <input id="volume" type="text" disabled>
+    </div>
+
+    <button onclick="calcVolume()">Calculate volume</button>
+
+
+<script>
+    function calcVolume(){
+        let radius = document.getElementById("radius");
+        radius = radius.value;
+        let height = document.getElementById("height");
+        height = height.value;
+        let volume = document.getElementById("volume");
+
+        let cylinder = new Cylinder(radius, height);
+
+        volume.value = cylinder.volume();
+    }
+</script>
+
+</body>
+</html>

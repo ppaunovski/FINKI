@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function isPalindrome(number){
+            return number.charAt(0) === number.charAt(2);
+        }
+        let input = prompt("Enter 3 digit number!");
+        if(parseInt(input) > 999 || parseInt(input) < 100){
+            document.write(input + " is not 3 digit number!");
+        }
+        else if(isPalindrome(input)){
+            document.write(input + " is a palindrome!");
+        }
+        else {
+            document.write(input + " is not a palindrome!")
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

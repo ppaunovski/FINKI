@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script>
+    //XXYYYZZZ (пр. 7129848)
+    // треба да го испечати во формат XXX/YYY-ZZZ
+    //(070/071/072 - T-mobile,075/076 – One, 077/078 – Vip)
+
+    let mobile = prompt("Enter number in format XXYYYZZZ");
+    let operator;
+    mobile = "0" + mobile;
+    switch (mobile.substring(0,3)){
+      case "070", "071", "072" : operator = "T-Mobile"; break;
+      case "075", "075" : operator = "One"; break;
+      case "077", "078" : operator = "Vip"; break;
+        default: alert("Invalid number")
+    }
+    alert(mobile.substring(0,3) + "/" + mobile.substring(3,6) + "-" + mobile.substring(6,9) + "\n" + operator);
+  </script>
+</head>
+<body>
+
+</body>
+</html>

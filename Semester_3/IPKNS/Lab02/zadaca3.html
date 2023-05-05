@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<h1>About Me</h1>
+
+<ul>
+  <li>Name: <span id="name"></span>
+  <li>Index: <span id="index"></span>
+  <li>Hometown: <span id="hometown"></span>
+</ul>
+
+<style>
+  .arial{
+    font-family: Arial, sans-serif;
+  }
+</style>
+
+
+<script>
+    let body = document.getElementsByTagName('body');
+    let li = document.getElementsByTagName('li');
+    let span = document.getElementsByTagName('span');
+    body[0].style.fontFamily = "Arial, sans-serif";
+    span[0].innerHTML = "Pavel";
+    span[1].innerHTML = "Paunovski";
+    span[2].innerHTML = "Skopje";
+    for(let i=0; i<li.length; i++){
+        li[i].style.backgroundColor = 'red';
+    }
+</script>
+</body>
+</html>
